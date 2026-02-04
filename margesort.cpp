@@ -1,69 +1,53 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
-#define nl '\n'
-#define ll long long
-#define ull unsigned long long
-#define ld long double
-#define pb push_back
-#define ff first
-#define ss second
-#define all(v) v.begin(), v.end()
-#define rall(v) v.rbegin(), v.rend()
-#define sz(x) (int)(x).size()
-#define FAST_IO ios::sync_with_stdio(false); cin.tie(NULL);
-
-const int INF = 1e9;
-const ll LINF = 1e18;
-const int MOD = 1e9 + 7;
-
-inline ll ceil_div(ll a, ll b) {
-    return (a + b - 1) / b;
-}
-inline void toLowerCase(string &s)
+void merge(int a[], int f, int mid, int l)
 {
-    transform(s.begin(), s.end(), s.begin(), ::/*toupper*/tolower);
+    int i = f, j = mid + 1, k = f;
+    int tmp[100000];
+
+    while (i <= mid && j <= l)
+    {
+        if (a[i] < a[j])
+            tmp[k++] = a[i++];
+        else
+            tmp[k++] = a[j++];
+    }
+
+    while (i <= mid)
+        tmp[k++] = a[i++];
+
+    while (j <= l)
+        tmp[k++] = a[j++];
+
+    for (int x = f; x <= l; x++)
+        a[x] = tmp[x];
 }
 
-
-
-
-
-void solve() 
+void mergeSort(int a[], int f, int l)
 {
- 
+    if (f < l)
+    {
+        int m = f + (l - f) / 2;
+        mergeSort(a, f, m);
+        mergeSort(a, m + 1, l);
+        merge(a, f, m, l);
+    }
+}
 
-int n ; cin>> n ;
-
-string s = to_string(n);
-int size = s.size();
-int sum = 0 ;
-for (int i = 0  ; i< size ; i++)
+int main()
 {
-  sum +=s[i]-'0';
-}
+    int n;
+    cin >> n;
 
-cout<<sum;
+    int a[n];
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
 
+    mergeSort(a, 0, n - 1);
 
-
-
-
-
-
-
-
-
-
-    
-}
-
-int main() {
-    FAST_IO
-
-    int t = 1;
-    // cin >> t;
-    while (t--) solve();
+    for (int i = 0; i < n; i++)
+        cout << a[i] << " ";
 
     return 0;
 }
