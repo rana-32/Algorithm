@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void swaap(int *a, int *b)
+void swaap(int a, int b)
 {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+    int temp = a;
+    a = b;
+    b = temp;
 }
 
 int partition(int a[], int f, int l)
@@ -23,10 +23,10 @@ int partition(int a[], int f, int l)
             j--;
 
         if (i < j)
-            swaap(&a[i], &a[j]);
+            swaap(a[i], a[j]);
     }
 
-    swaap(&a[f], &a[j]);
+    swaap(a[f], a[j]);
     return j;
 }
 
@@ -52,3 +52,4 @@ int main()
 
     return 0;
 }
+
