@@ -1,55 +1,63 @@
-#include <bits/stdc++.h>
+#include<iostream>
 using namespace std;
 
-void swaap(int a, int b)
+void swap(int &a, int &b)
 {
-    int temp = a;
-    a = b;
-    b = temp;
+int temp= a;
+a= b ;
+b= temp ;
 }
 
-int partition(int a[], int f, int l)
+int partation(int a[] , int f ,int  l)
 {
-    int pivot = a[f];
-    int i = f;
-    int j = l;
-
-    while (i < j)
+    int pvt = a[f];
+    int i = f ; 
+    int j = l ;
+    while (i<j)
     {
-        while (a[i] <= pivot && i < l)
+        while (a[i]<=pvt)
+        {
             i++;
-
-        while (a[j] > pivot)
+        }
+        while(a[j]>pvt)
+        {
             j--;
+        }
 
-        if (i < j)
-            swaap(a[i], a[j]);
+        if (i<j)
+        {
+            swap(a[i],a[j]);
+        }
     }
-
-    swaap(a[f], a[j]);
-    return j;
+swap(a[f],a[j]);
+return  j ; 
 }
 
-void quicksort(int a[], int f, int l)
+void quicksort (int a[] , int f , int l)
 {
-    if (f < l)
+    if (f<l)//invalid range f>l
     {
-        int p = partition(a, f, l);
-        quicksort(a, f, p - 1);
-        quicksort(a, p + 1, l);
-    }
+    int part = partation(a, f, l );
+    quicksort(a,f,part-1);
+    quicksort(a,part+1,l);
+   }
 }
+
+
+
 
 int main()
 {
-    int a[] = {6, 3, 8, 11, 14, 4, 7};
-    int n = sizeof(a) / sizeof(a[0]);
 
-    quicksort(a, 0, n - 1);
+int a[]= { 1,2,3,2,5,4};
+int size = sizeof(a)/sizeof (a[0]);
 
-    for (int i = 0; i < n; i++)
+quicksort(a,0,size-1);
+
+    for (int i = 0; i < size; i++)
         cout << a[i] << " ";
 
-    return 0;
-}
+return 0 ;
 
+
+}
