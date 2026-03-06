@@ -1,45 +1,58 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 struct Activity {
-    int st; // start time
-    int ft; // finish time
+    int st;
+    int ft;
 };
 
-int main() {
+bool cmp(Activity a, Activity b)
+{
+    return a.ft < b.ft;   // finish time অনুযায়ী sort
+}
+
+int main()
+{
     int n;
     cout << "Enter number of activities: ";
     cin >> n;
 
-    Activity act[20]; // এখানে ২০টা activity রাখার জন্য array বানানো
-    cout << "Enter start and finish times:\n";
+    Activity act[20];
 
-    for (int i = 0; i < n; ++i) {
-        cin >> act[i].st; // start time input
-        cin >> act[i].ft; // finish time input
+    cout << "Enter start and finish times:\n";
+    for (int i = 0; i < n; i++)
+    {
+        cin >> act[i].st >> act[i].ft;
     }
 
-    int A[20]; // select হওয়া activity এর index রাখবে
-    int count = 0; // select হওয়া activity এর সংখ্যা
+    // Step 1: sort according to finish time
+    sort(act, act + n, cmp);
 
-    // প্রথম activity select করি
-    A[count++] = 0; // index 0 select
-    int j = 0; // last selected activity এর index
+    int A[20];
+    int count = 0;
 
-    // বাকি activity check করি
-    for (int i = 1; i < n; i++) {
-        if (act[i].st >= act[j].ft) { // যদি start time >= last selected finish
-            A[count++] = i; // select করি
-            j = i; // last selected update করি
+    // Step 2: select first activity
+    A[count++] = 0;
+    int j = 0;
+
+    // Step 3 & 4
+    for (int i = 1; i < n; i++)
+    {
+        if (act[i].st >= act[j].ft)
+        {
+            A[count++] = i;
+            j = i;
         }
     }
 
-    // Output
-    cout << "Selected activity indices: ";
-    for (int i = 0; i < count; i++) {
-        cout << A[i] << " ";
+    cout << "Selected Activities:\n";
+    for (int i = 0; i < count; i++)
+    {
+        cout << act[A[i]].st << " " << act[A[i]].ft << endl;
     }
-    cout << "\nMaximum activities = " << count << endl;
+
+    cout << "Maximum activities = " << count << endl;
 
     return 0;
 }
