@@ -1,6 +1,6 @@
-#include <bits/stdc++.h> // সব standard library একসাথে include
-using namespace std;    // std:: না লিখে সরাসরি ব্যবহার করার জন্য
-#define nl '\n'         // newline এর shortcut
+#include <bits/stdc++.h> 
+using namespace std;    য
+#define nl '\n'         
 
 // Item নামে structure বানানো
 struct Item{
