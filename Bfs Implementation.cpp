@@ -3,26 +3,25 @@
 #include <queue>
 using namespace std;
 
-vector<int> adj[100];// kontar sate konta connected 
-bool vis[100];// visited chake korar jonno 
+vector<int> adj[256];
+bool vis[256];
 
-void bfs(int s)
+void bfs(char s)
 {
-    queue<int> q;
-    
+    queue<char> q;
     q.push(s);
     vis[s] = true;
 
-    while(!q.empty())
+    while (!q.empty())
     {
-        int u = q.front();
+        char u = q.front();
         q.pop();
 
         cout << u << " ";
 
-        for(int v : adj[u])
+        for (int v : adj[u])
         {
-            if(!vis[v])
+            if (!vis[v])
             {
                 vis[v] = true;
                 q.push(v);
@@ -34,18 +33,21 @@ void bfs(int s)
 int main()
 {
     int n, e;
-    cin >> n >> e;
+    cin >> n >> e;   // node + edge input
 
-    for(int i = 0; i < e; i++)
+    for (int i = 0; i < e; i++)
     {
-        int u, v;
+        char u, v;
         cin >> u >> v;
 
         adj[u].push_back(v);
         adj[v].push_back(u);
     }
 
-    bfs(0);
+    char start;
+    cin >> start;   // start node
+
+    bfs(start);
 
     return 0;
 }
